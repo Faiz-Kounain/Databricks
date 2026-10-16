@@ -1,0 +1,31 @@
+bundle:
+  name: retailx-dbt
+
+workspace:
+  host: dbc-1dda8b01-b539.cloud.databricks.com
+
+resources:
+  jobs:
+    retailx_dbt_pipeline:
+      name: "RetailX dbt Pipeline"
+      tasks:
+        - task_key: dbt_transform
+          dbt_task:
+            project_directory: ./
+            commands:
+              - "dbt deps"
+              - "dbt seed"
+              - "dbt run"
+              - "dbt test"
+            warehouse_id: d2beae9cbe415476
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "1"
+
+targets:
+  dev:
+    default: true
+    workspace:
+      host: dbc-1dda8b01-b539.cloud.databricks.com
