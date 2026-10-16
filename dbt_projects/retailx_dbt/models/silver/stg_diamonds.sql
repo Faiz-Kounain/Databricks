@@ -1,3 +1,4 @@
+-- Trigger dbt workflow test
 {{ config(materialized='table') }}
 
 SELECT
