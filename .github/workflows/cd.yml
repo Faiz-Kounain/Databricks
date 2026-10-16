@@ -1,4 +1,3 @@
-#Runs on Merge to Main
 name: CD - Deploy and Run dbt
 
 on:
@@ -12,14 +11,14 @@ jobs:
   deploy-and-run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install Databricks CLI
         run: |
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
 
-      - name: Deploy bundle
+      - name: Deploy dbt bundle
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
@@ -27,7 +26,7 @@ jobs:
           cd dbt_projects/retailx_dbt
           databricks bundle deploy --target dev
 
-      - name: Run dbt job
+      - name: Run dbt job               # ← NEW STEP
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}

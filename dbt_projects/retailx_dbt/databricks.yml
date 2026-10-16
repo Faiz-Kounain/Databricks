@@ -1,9 +1,6 @@
 bundle:
   name: retailx-dbt
 
-workspace:
-  host: dbc-1dda8b01-b539.cloud.databricks.com
-
 resources:
   jobs:
     retailx_dbt_pipeline:
@@ -29,5 +26,3 @@ targets:
     default: true
     workspace:
       host: dbc-1dda8b01-b539.cloud.databricks.com
-
-      
