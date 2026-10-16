@@ -1,22 +1,26 @@
-#Runs on Pull Requests
-name: CI
+name: CI - Validate dbt Bundle
 
 on:
   pull_request:
     branches: [main]
+    paths:
+      - 'dbt_projects/retailx_dbt/**'
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install pytest
-        run: pip install pytest
-      - name: Run tests
-        run: pytest tests/
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
+
       - name: Validate bundle
-        run: databricks bundle validate
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          cd dbt_projects/retailx_dbt
+          databricks bundle validate --target dev
