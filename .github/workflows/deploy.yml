@@ -2,17 +2,24 @@ name: Deploy Databricks Bundle
 
 on:
   push:
-    branches: [main]
+    branches: [main]        # trigger on push to main
+    paths:
+      - 'retailx-capstone/**'  # only when bundle files change
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install Databricks CLI
-        run: pip install databricks-cli
-      - name: Deploy to dev
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Deploy to Databricks
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: databricks bundle deploy --target dev
+        run: |
+          cd retailx-capstone
+          databricks bundle deploy --target dev
