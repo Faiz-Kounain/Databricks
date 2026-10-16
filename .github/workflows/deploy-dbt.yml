@@ -1,3 +1,4 @@
+#Deploys dbt bundle on push to main
 name: Deploy dbt Bundle
 
 on:

@@ -1,3 +1,4 @@
+# Deploys capstone bundle on push to main
 name: Deploy Databricks Bundle
 
 on:

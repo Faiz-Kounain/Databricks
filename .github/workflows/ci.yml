@@ -1,4 +1,4 @@
-# .github/workflows/ci.yml
+#Runs on Pull Requests
 name: CI
 
 on:
@@ -10,14 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Python
+      - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install pytest
         run: pip install pytest
-
       - name: Run tests
-        run: pytest retailx-capstone/tests/
+        run: pytest tests/
+      - name: Validate bundle
+        run: databricks bundle validate

@@ -1,0 +1,14 @@
+#Runs on Merge to Main
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Databricks
+        run: databricks bundle deploy --target dev
