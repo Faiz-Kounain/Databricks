@@ -7,7 +7,7 @@ workspace:
 resources:
   jobs:
     retailx_dbt_pipeline:
-      name: "RetailX dbt Pipeline"
+      name: "RetailX dbt Pipeline v2"
       tasks:
         - task_key: dbt_transform
           dbt_task:
