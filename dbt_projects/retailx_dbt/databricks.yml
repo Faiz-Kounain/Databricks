@@ -20,6 +20,8 @@ resources:
         - environment_key: default
           spec:
             client: "2"
+            dependencies:
+              - "dbt-databricks>=1.6.0"
 
 targets:
   dev:
