@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_diamonds
+    description: "Silver layer — cleaned diamonds data"
+    columns:
+      - name: carat
+        description: "Weight of the diamond"
+        tests:
+          - not_null
+
+      - name: price
+        description: "Price in USD"
+        tests:
+          - not_null
+
+      - name: cut
+        description: "Cut quality"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['IDEAL', 'PREMIUM', 'GOOD', 'FAIR', 'VERY GOOD']
+
+  - name: fct_diamonds_prices
+    description: "Gold layer — diamonds aggregated by cut/color/clarity"
+    columns:
+      - name: cut
+        tests:
+          - not_null
+      - name: num_diamonds
+        tests:
+          - not_null
